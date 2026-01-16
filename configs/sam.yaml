@@ -1,0 +1,4 @@
+min_mask_area: 100
+points_per_side: 32
+pred_iou_thresh: 0.88
+stability_score_thresh: 0.95

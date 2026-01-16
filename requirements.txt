@@ -1,0 +1,7 @@
+numpy
+opencv-python
+torch
+torchvision
+segment-anything
+openai-clip
+pyyaml
