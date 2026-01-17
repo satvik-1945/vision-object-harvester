@@ -5,7 +5,7 @@ import numpy as np
 import cv2
 import yaml
 import torch
-import clip
+# import clip
 from PIL import Image
 from segment_anything import SamAutomaticMaskGenerator, sam_model_registry
 
@@ -90,7 +90,7 @@ class SAMSegmenter(BaseSegmenter):
         )
 
         # Load CLIP model for prompt handling
-        self.clip_model, self.clip_preprocess = clip.load("ViT-B/32", device=device)
+        # self.clip_model, self.clip_preprocess = clip.load("ViT-B/32", device=device)
 
     def segment(self, image: np.ndarray, frame_index: int, timestamp: float, prompt: Optional[str] = None) -> FrameSegmentationResult:
         """
@@ -136,17 +136,15 @@ class SAMSegmenter(BaseSegmenter):
             )
             segmentation_masks.append(seg_mask)
 
-        # If prompt is provided, filter using CLIP
-        if prompt:
-            segmentation_masks = self._filter_masks_with_prompt(image, segmentation_masks, prompt)
-
+       # Prompt-based filtering will be added later (CLIP)
+# For now, return all SAM masks
         return FrameSegmentationResult(
             frame_index=frame_index,
             timestamp=timestamp,
             masks=segmentation_masks
         )
 
-    def _filter_masks_with_prompt(self, image: np.ndarray, masks: List[SegmentationMask], prompt: str) -> List[SegmentationMask]:
+    # def _filter_masks_with_prompt(self, image: np.ndarray, masks: List[SegmentationMask], prompt: str) -> List[SegmentationMask]:
         """
         Filter masks based on the text prompt using CLIP similarity.
 
